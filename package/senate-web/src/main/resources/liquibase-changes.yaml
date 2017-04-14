@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: martin.xu
+      changes:
+        - insert:
+            tableName: C_ADMIN_USER
+            columns:
+              - column:
+                  name: ADMIN_USER_ID
+                  value: 100
+              - column:
+                  name: ACTIVE_STATUS_FLAG
+                  valueBoolean: true
+              - column:
+                  name: ADMIN_EMAIL
+                  value: TEST01@e-jlt.com
+              - column:
+                  name: LOGIN
+                  value: martin.xu
+              - column:
+                  name: PASSWORD
+                  value: 1
+              - column:
+                  name: NAME
+                  value: Martin Xu

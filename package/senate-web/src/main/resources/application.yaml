@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/senate
+    username: root
+    password: root
+    initialSize: 5
+
+  jpa:
+    open-in-view: true
+    generate-ddl: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      #与liquibase互斥，开发时设置为update进行自动创建表结构
+      ddl-auto: update
+
+  mvc:
+    static-entityPath-pattern: /assests/**
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration
+
+#liquibase:
+#  change-log: classpath:liquibase-changes.yaml
+
