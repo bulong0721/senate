@@ -1,6 +1,8 @@
 package com.jlt.senate.web.controller;
 
 import com.jlt.framework.ajax.AjaxPageableResponse;
+import com.jlt.framework.ajax.AjaxResponse;
+import com.jlt.framework.exception.ServiceException;
 import com.jlt.senate.admin.domain.AdminUser;
 import com.jlt.senate.admin.service.AdminUserService;
 import org.slf4j.Logger;
@@ -8,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,5 +49,12 @@ public class AdminUserController {
             resp.addDataEntry(entry);
         }
         return resp;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/save")
+    public AjaxResponse saveUser(@RequestBody AdminUser user) throws ServiceException {
+        userService.save(user);
+        return AjaxResponse.success();
     }
 }
