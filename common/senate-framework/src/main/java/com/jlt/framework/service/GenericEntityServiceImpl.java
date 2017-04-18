@@ -2,10 +2,14 @@ package com.jlt.framework.service;
 
 import com.jlt.framework.GenericEntity;
 import com.jlt.framework.dao.GenericEntityDao;
+import com.jlt.framework.data.Page;
+import com.jlt.framework.data.Pageable;
+import com.jlt.framework.data.Sort;
 import com.jlt.framework.exception.ServiceException;
 import com.jlt.framework.util.GenericEntityUtil;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
 
-import javax.persistence.metamodel.SingularAttribute;
 import java.io.Serializable;
 import java.util.List;
 
@@ -24,10 +28,6 @@ public abstract class GenericEntityServiceImpl<K extends Serializable & Comparab
         this.genericDao = genericDao;
 
         this.objectClass = (Class<E>) GenericEntityUtil.getEntityClass(getClass());
-    }
-
-    protected final Class<E> getObjectClass() {
-        return objectClass;
     }
 
     public E getEntity(Class<? extends E> clazz, K id) {
@@ -50,7 +50,7 @@ public abstract class GenericEntityServiceImpl<K extends Serializable & Comparab
         save(entity);
     }
 
-    public final void update(E entity) throws ServiceException {
+    public void update(E entity) throws ServiceException {
         updateEntity(entity);
     }
 
@@ -76,5 +76,45 @@ public abstract class GenericEntityServiceImpl<K extends Serializable & Comparab
 
     public List<E> list() {
         return genericDao.findAll();
+    }
+
+    @Override
+    public E findOne(Predicate predicate) {
+        return genericDao.findOne(predicate);
+    }
+
+    @Override
+    public List<E> findAll(Predicate predicate) {
+        return genericDao.findAll(predicate);
+    }
+
+    @Override
+    public List<E> findAll(Predicate predicate, OrderSpecifier<?>[] orders) {
+        return genericDao.findAll(predicate, orders);
+    }
+
+    @Override
+    public List<E> findAll(Predicate predicate, Sort sort) {
+        return genericDao.findAll(predicate, sort);
+    }
+
+    @Override
+    public List<E> findAll(OrderSpecifier<?>[] orders) {
+        return genericDao.findAll(orders);
+    }
+
+    @Override
+    public Page<E> findAll(Predicate predicate, Pageable pageable) {
+        return genericDao.findAll(predicate, pageable);
+    }
+
+    @Override
+    public long count(Predicate predicate) {
+        return genericDao.count(predicate);
+    }
+
+    @Override
+    public boolean exists(Predicate predicate) {
+        return genericDao.exists(predicate);
     }
 }

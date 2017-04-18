@@ -1,5 +1,6 @@
 package com.jlt.senate.admin.domain;
 
+import com.alibaba.fastjson.annotation.JSONType;
 import com.jlt.framework.GenericEntity;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "C_ADMIN_USER")
 @DynamicUpdate
+@JSONType(ignores = {"password"})
 public class AdminUser extends GenericEntity<Long, AdminUser> {
 
     @Column(name = "NAME", length = 20, nullable = false)

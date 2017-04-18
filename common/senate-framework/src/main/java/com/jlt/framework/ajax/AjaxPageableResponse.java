@@ -1,24 +1,23 @@
 package com.jlt.framework.ajax;
 
-import java.util.Map;
+import com.jlt.framework.data.Page;
 
-public class AjaxPageableResponse extends AjaxResponse {
+import java.util.List;
+
+public class AjaxPageableResponse<T> extends AjaxResponse<T> {
     private long total;
-    private long count;
+    private int page;
+    private int size;
+    private List<T> list;
 
-    @Override
-    public void addDataEntry(Map<String, Object> dataEntry) {
-        super.addDataEntry(dataEntry);
-        count = rows.size();
-        total = rows.size();
+    public AjaxPageableResponse() {
     }
 
-    public long getCount() {
-        return count;
-    }
-
-    public void setCount(long count) {
-        this.count = count;
+    public AjaxPageableResponse(Page<T> page) {
+        this.total = page.getTotalElements();
+        this.list = page.getContent();
+        this.size = page.getSize();
+        this.page = page.getNumber() / size;
     }
 
     public long getTotal() {
@@ -27,5 +26,29 @@ public class AjaxPageableResponse extends AjaxResponse {
 
     public void setTotal(long total) {
         this.total = total;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public List<T> getList() {
+        return list;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
     }
 }

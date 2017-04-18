@@ -1,5 +1,6 @@
 package com.jlt.framework;
 
+import com.alibaba.fastjson.annotation.JSONType;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -56,6 +57,7 @@ public abstract class GenericEntity<K extends Serializable & Comparable<K>, E ex
         this.modified = modified;
     }
 
+    @Transient
     public boolean isNew() {
         return getId() == null;
     }

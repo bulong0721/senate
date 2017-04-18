@@ -1,5 +1,6 @@
 package com.jlt.framework.data;
 
+import com.google.common.collect.Streams;
 import org.springframework.util.Assert;
 
 import java.io.Serializable;
@@ -76,7 +77,7 @@ abstract class Chunk<T> implements Slice<T>, Serializable {
 
         Assert.notNull(converter, "Converter must not be null!");
 
-        return this.stream().map(converter::apply).collect(Collectors.toList());
+        return Streams.stream(this).map(converter::apply).collect(Collectors.toList());
     }
 
     @Override

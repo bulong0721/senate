@@ -6,15 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AjaxResponse implements Serializable {
+public class AjaxResponse<T> implements Serializable {
 
     public final static int RESPONSE_STATUS_SUCCESS = 100;
-    public final static int RESPONSE_STATUS_FAIURE = -1;
-    public final static int RESPONSE_STATUS_VALIDATION_FAILED = -2;
 
-    protected int status;
-    protected String statusMessage = null;
-    protected List<Object> rows = new ArrayList<Object>();
+    protected int status = RESPONSE_STATUS_SUCCESS;
+    protected String message = null;
+    protected T data;
 
     public int getStatus() {
         return status;
@@ -24,28 +22,20 @@ public class AjaxResponse implements Serializable {
         this.status = status;
     }
 
-    public List<Object> getRows() {
-        return rows;
+    public String getMessage() {
+        return message;
     }
 
-    public void addDataEntry(Map<String, Object> dataEntry) {
-        this.rows.add(dataEntry);
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public void setErrorMessage(Throwable t) {
-        this.setStatusMessage(t.getMessage());
+    public T getData() {
+        return data;
     }
 
-    public void setErrorString(String t) {
-        this.setStatusMessage(t);
-    }
-
-    public String getStatusMessage() {
-        return statusMessage;
-    }
-
-    public void setStatusMessage(String statusMessage) {
-        this.statusMessage = statusMessage;
+    public void setData(T data) {
+        this.data = data;
     }
 
     public static AjaxResponse success() {

@@ -34,20 +34,8 @@ public class AdminUserController {
     @RequestMapping(value = "/user/paging")
     public AjaxPageableResponse pageUsers(Model model, HttpServletRequest request) {
         AjaxPageableResponse resp = new AjaxPageableResponse();
-        List<AdminUser> userList = userService.list();
-        for (AdminUser user : userList) {
-            Map entry = new HashMap();
-            entry.put("id", user.getId());
-            entry.put("login", user.getLogin());
-            entry.put("name", user.getName());
-            entry.put("email", user.getEmail());
-            entry.put("phoneNumber", user.getPhoneNumber());
-            entry.put("activeStatusFlag", user.getActiveStatusFlag());
-            entry.put("lastLogin", user.getLastLogin());
-            entry.put("loginIP", user.getLoginIP());
-            entry.put("gender", user.getGender());
-            resp.addDataEntry(entry);
-        }
+        List<AdminUser> userList = userService.findAll();
+        resp.setList(userList);
         return resp;
     }
 
